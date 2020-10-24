@@ -6,13 +6,14 @@ namespace Lab03
     {
         public enum WeekDays { monday = 1, tuestay, wednesday, thirsday, friday, saturday, sunday }
         int flightNum;
-        public WeekDays day;
+        private WeekDays day;
         public string destination;
         const string departPoint = "Гуанчжоу";
         string departTime;
         string planeType;
         static int listSize;
         public readonly int id;
+        public WeekDays Day;
         public string DepartTime { get; set; }
         public string ListSize { get; set; }
         public string PlaneType
@@ -81,12 +82,12 @@ namespace Lab03
             else return false;
         }
 
-        new public string ToString()
+        override public string ToString()
         {
             return this.day + " " + destination + " " + departTime + " " + flightNum;
         }
 
-        new public int GetHashCode()
+        override public int GetHashCode()
         {
             return this.flightNum.GetHashCode() + destination.GetHashCode();
         }
@@ -113,12 +114,13 @@ namespace Lab03
             Console.WriteLine("Новый пункт назначения");
             string newdest = Console.ReadLine();
             flight1.ChangeDestination(out flight1.destination, ref newdest);
+            Console.WriteLine(flight1.destination);
             Console.WriteLine(flight1.Equals(flight2));
             Console.WriteLine(flight1.GetType());
 
             Airline[] flights = new Airline[5];
             for (int i = 0; i < 5; i++)
-                flights[i] = new Airline((Airline.WeekDays)i+1);
+                flights[i] = new Airline((Airline.WeekDays)i + 1);
 
             Console.WriteLine();
 
@@ -129,7 +131,7 @@ namespace Lab03
             Console.WriteLine();
 
             for (int i = 0; i < 5; i++)
-                if (flights[i].day == (Airline.WeekDays)3)
+                if (flights[i].Day == (Airline.WeekDays)3)
                     Console.WriteLine($"{flights[i].ToString()}");
 
         }
